@@ -151,7 +151,7 @@ namespace CMS_FailedBatchProcessNotification
                 msg.AddCcs(emailsCC);
 
             var response = client.SendEmailAsync(msg);
-            log.LogInformation($"Email service response: {response.Result.StatusCode} - {response.Status}");
+            log.LogInformation($"Email service response: {response.Result.StatusCode}\n{response.Result.Headers}");
         }
     }
 }
