@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "CMS_FailedBatchProcessNotification": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7142",
+      "launchBrowser": false
+    }
+  }
+}
