@@ -87,21 +87,30 @@ namespace CMS_FailedBatchProcessNotification
             if (failedJobsCount > 0)
             {
                 string sendToString = Environment.GetEnvironmentVariable("SendTo");
-                string[] sendToEmails = sendToString.Split(';');
-                List<EmailAddress> listTo = new();
-                foreach (string emailAdress in sendToEmails)
-                    listTo.Add(new EmailAddress(emailAdress));
+                if (!string.IsNullOrEmpty(sendToString))
+                {
+                    string[] sendToEmails = sendToString.Split(';');
+                    List<EmailAddress> listTo = new();
+                    foreach (string emailAdress in sendToEmails)
+                        listTo.Add(new EmailAddress(emailAdress));
 
-                string sendToCCString = Environment.GetEnvironmentVariable("SendToCC");
-                string[] sendToCCEmails = sendToCCString.Split(';');
-                List<EmailAddress> listCC = new();
-                foreach (string ccAdress in sendToCCEmails)
-                    listCC.Add(new EmailAddress(ccAdress));
+                    string sendToCCString = Environment.GetEnvironmentVariable("SendToCC");
+                    List<EmailAddress> listCC = new();
+                    if (!string.IsNullOrEmpty(sendToCCString))
+                    {
+                        string[] sendToCCEmails = sendToCCString.Split(';');
+                        foreach (string ccAdress in sendToCCEmails)
+                            listCC.Add(new EmailAddress(ccAdress));
+                    }
 
-                string subject = "CMS@Work - failed batch jobs report";
-                string message = new($"Failed batch jobs report:<br>{failedBatchJobsMessageContainer}<br><br>Please ensure to take necessary steps.<br>From Poland, with love.");
-
-                SendEmail(listTo, listCC, subject, message, log);
+                    string subject = "CMS@Work - failed batch jobs report";
+                    string message = new($"Failed batch jobs report:<br>{failedBatchJobsMessageContainer}<br><br>Please ensure to take necessary steps.<br>From Poland, with love.");
+                    
+                    log.LogInformation("Failed batch jobs detected, sending email...");
+                    SendEmail(listTo, listCC, subject, message, log);
+                }
+                else
+                    log.LogInformation("Failed batch jobs detected but email recipents are not defined, environment variable must contain at least one email address");
             }
             // end of TimeTrigger function, see you space cowboy
         }
