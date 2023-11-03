@@ -86,17 +86,17 @@ namespace CMS_FailedBatchProcessNotification
 
             if (failedJobsCount > 0)
             {
-                // create list of recipents - suggesting a single distribution list for ease of maintenence (straight from AD)
-                List<EmailAddress> listTo = new()
-                {
-                    new EmailAddress("emanuel.misztal@jacobs.com", "Emanuel Misztal")
-                };
+                string sendToString = Environment.GetEnvironmentVariable("SendTo");
+                string[] sendToEmails = sendToString.Split(';');
+                List<EmailAddress> listTo = new();
+                foreach (string emailAdress in sendToEmails)
+                    listTo.Add(new EmailAddress(emailAdress));
 
-                // create list of CC recipents - if you don't like someone; might be a DL as well
-                List<EmailAddress> listCC = new()
-                {
-                    // here goes a list of your enemies
-                };
+                string sendToCCString = Environment.GetEnvironmentVariable("SendToCC");
+                string[] sendToCCEmails = sendToCCString.Split(';');
+                List<EmailAddress> listCC = new();
+                foreach (string ccAdress in sendToCCEmails)
+                    listCC.Add(new EmailAddress(ccAdress));
 
                 string subject = "CMS@Work - failed batch jobs report";
                 string message = new($"Failed batch jobs report:<br>{failedBatchJobsMessageContainer}<br><br>Please ensure to take necessary steps.<br>From Poland, with love.");
