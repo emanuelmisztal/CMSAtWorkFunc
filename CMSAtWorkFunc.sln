@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMSAtWorkFunc", "CMS-FailedBatchProcessNotification\CMSAtWorkFunc.csproj", "{20C487F9-8904-4EE5-AC6B-05F0EFDDDAFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMSAtWorkFunc", "CMSAtWorkFunc\CMSAtWorkFunc.csproj", "{20C487F9-8904-4EE5-AC6B-05F0EFDDDAFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
